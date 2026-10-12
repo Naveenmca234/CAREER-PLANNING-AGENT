@@ -1,0 +1,605 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Career Planning Agent | AI-Powered Career Strategist & Personalized Roadmaps</title>
+  <meta name="description" content="AI-Powered Career Planning Agent that analyzes your academic qualifications, skills, and goals to generate personalized career paths, skill-gap analysis, and phased roadmaps.">
+  
+  <!-- Modern Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  
+  <!-- Font Awesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  
+  <!-- Main Stylesheet -->
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <!-- Background Glow Orbs -->
+  <div class="bg-glow bg-glow-1"></div>
+  <div class="bg-glow bg-glow-2"></div>
+  <div class="bg-glow bg-glow-3"></div>
+
+  <!-- Header / Navigation -->
+  <header class="app-header">
+    <div class="header-container">
+      <div class="brand">
+        <div class="brand-icon">
+          <i class="fa-solid fa-compass-drafting"></i>
+        </div>
+        <div class="brand-text">
+          <h1>Career Planning <span class="gradient-text">Agent</span></h1>
+          <p class="tagline">Agentic AI Career Strategist &amp; Personalized Roadmap Architect</p>
+        </div>
+      </div>
+
+      <div class="header-actions">
+        <!-- AI Provider Status Badge -->
+        <button id="engineStatusBtn" class="status-badge" title="Click to view AI Settings">
+          <span class="pulse-dot"></span>
+          <span id="engineStatusText">Checking Engine...</span>
+          <i class="fa-solid fa-gear"></i>
+        </button>
+
+        <!-- Theme Toggle -->
+        <button id="themeToggleBtn" class="icon-btn" title="Toggle Theme" aria-label="Toggle Dark/Light Mode">
+          <i class="fa-solid fa-moon"></i>
+        </button>
+
+        <!-- Settings Button -->
+        <button id="openSettingsBtn" class="icon-btn" title="AI Settings & API Keys" aria-label="Open Settings">
+          <i class="fa-solid fa-sliders"></i>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Quick Testing Presets Bar -->
+  <section class="presets-section">
+    <div class="presets-container">
+      <span class="presets-label"><i class="fa-solid fa-wand-magic-sparkles"></i> Quick Presets:</span>
+      <div class="preset-buttons" id="presetButtonsContainer">
+        <button class="preset-pill active-test" data-preset="mca_ai">
+          <i class="fa-solid fa-star text-gold"></i> <strong>Testing Example:</strong> MCA Student → AI Engineer
+        </button>
+        <button class="preset-pill" data-preset="btech_fullstack">
+          <i class="fa-solid fa-code"></i> B.Tech CSE → Full-Stack Developer
+        </button>
+        <button class="preset-pill" data-preset="math_datascientist">
+          <i class="fa-solid fa-chart-pie"></i> B.Sc Math → Data Scientist
+        </button>
+        <button class="preset-pill" data-preset="devops_cloud">
+          <i class="fa-solid fa-cloud"></i> BCA Tech Support → DevOps Engineer
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Main Container -->
+  <main class="main-layout">
+    <!-- Left Column: Student Profile Form -->
+    <aside class="sidebar-panel">
+      <div class="panel-card glass-card">
+        <div class="card-header">
+          <div class="card-title-group">
+            <span class="card-badge"><i class="fa-solid fa-user-graduate"></i> Step 1</span>
+            <h2>Student Profile Details</h2>
+          </div>
+          <button id="resetFormBtn" class="text-btn" title="Reset fields"><i class="fa-solid fa-rotate-left"></i> Reset</button>
+        </div>
+        <p class="panel-subtitle">Provide your academic background, current technical skills, and goals to generate your personalized career plan.</p>
+
+        <form id="careerForm" class="profile-form">
+          <!-- Academic Qualifications -->
+          <div class="form-group">
+            <label for="academicQualifications">
+              <i class="fa-solid fa-graduation-cap"></i> Academic Qualifications <span class="required">*</span>
+            </label>
+            <input 
+              type="text" 
+              id="academicQualifications" 
+              name="academicQualifications" 
+              placeholder="e.g. MCA student, B.Tech CSE (3rd Year), B.Sc CS" 
+              required
+            >
+            <span class="field-hint">Your current degree, major, or academic background</span>
+          </div>
+
+          <!-- Current Technical Skills -->
+          <div class="form-group">
+            <label for="technicalSkills">
+              <i class="fa-solid fa-laptop-code"></i> Current Technical Skills <span class="required">*</span>
+            </label>
+            <textarea 
+              id="technicalSkills" 
+              name="technicalSkills" 
+              rows="3" 
+              placeholder="e.g. Python, Java, SQL, HTML, CSS" 
+              required
+            ></textarea>
+            <span class="field-hint">Languages, frameworks, tools, or databases you already know</span>
+          </div>
+
+          <!-- Areas of Interest -->
+          <div class="form-group">
+            <label for="areasOfInterest">
+              <i class="fa-solid fa-lightbulb"></i> Areas of Interest
+            </label>
+            <input 
+              type="text" 
+              id="areasOfInterest" 
+              name="areasOfInterest" 
+              placeholder="e.g. Artificial Intelligence and Software Development"
+            >
+            <span class="field-hint">Domains that excite you (AI, Web, Cloud, Robotics, etc.)</span>
+          </div>
+
+          <!-- Career Goal -->
+          <div class="form-group">
+            <label for="careerGoal">
+              <i class="fa-solid fa-bullseye"></i> Target Career Goal <span class="required">*</span>
+            </label>
+            <input 
+              type="text" 
+              id="careerGoal" 
+              name="careerGoal" 
+              placeholder="e.g. AI Engineer, Full-Stack Developer, Data Scientist" 
+              required
+            >
+            <span class="field-hint">The specific role or destination you want to reach</span>
+          </div>
+
+          <!-- Grid: Experience Level & Available Time -->
+          <div class="form-row">
+            <div class="form-group half">
+              <label for="experienceLevel">
+                <i class="fa-solid fa-layer-group"></i> Experience Level
+              </label>
+              <select id="experienceLevel" name="experienceLevel">
+                <option value="Beginner" selected>Beginner (0 - 1 year)</option>
+                <option value="Intermediate">Intermediate (1 - 3 years)</option>
+                <option value="Advanced">Advanced (3+ years)</option>
+              </select>
+            </div>
+
+            <div class="form-group half">
+              <label for="availableTime">
+                <i class="fa-solid fa-clock"></i> Daily Learning Time
+              </label>
+              <select id="availableTime" name="availableTime">
+                <option value="1 hour per day">1 hour / day (7 hrs/wk)</option>
+                <option value="2 hours per day" selected>2 hours / day (14 hrs/wk)</option>
+                <option value="3 hours per day">3 hours / day (21 hrs/wk)</option>
+                <option value="4+ hours per day (Intensive)">4+ hrs / day (Intensive)</option>
+              </select>
+            </div>
+          </div>
+
+          <!-- Additional Notes / Preferences -->
+          <div class="form-group">
+            <label for="additionalNotes">
+              <i class="fa-solid fa-comment-dots"></i> Additional Notes or Constraints (Optional)
+            </label>
+            <input 
+              type="text" 
+              id="additionalNotes" 
+              name="additionalNotes" 
+              placeholder="e.g. Preparing for campus placements in 4 months, prefers free resources"
+            >
+          </div>
+
+          <!-- Generate Button -->
+          <button type="submit" id="generatePlanBtn" class="primary-btn glow-btn">
+            <span class="btn-content">
+              <i class="fa-solid fa-wand-magic-sparkles"></i>
+              <span>Generate Career Plan</span>
+            </span>
+            <span class="btn-loader" style="display: none;">
+              <i class="fa-solid fa-circle-notch fa-spin"></i>
+              <span>Analyzing Profile with AI...</span>
+            </span>
+          </button>
+        </form>
+      </div>
+
+      <!-- Quick Tips Card -->
+      <div class="panel-card glass-card side-note-card">
+        <h3><i class="fa-solid fa-circle-info"></i> How the Agent Works</h3>
+        <ul class="agent-features-list">
+          <li><strong>Agentic Analysis:</strong> Evaluates academic readiness &amp; real industry skill demand.</li>
+          <li><strong>Gap Detection:</strong> Contrasts your current skills against top hiring benchmarks.</li>
+          <li><strong>Dynamic Phasing:</strong> Calibrates timelines strictly to your daily hours.</li>
+          <li><strong>Interactive Refinement:</strong> Ask questions or adjust pacing in real-time.</li>
+        </ul>
+      </div>
+    </aside>
+
+    <!-- Right Column: Results Dashboard -->
+    <section class="content-panel">
+      <!-- Welcome / Placeholder State -->
+      <div id="emptyState" class="empty-state glass-card">
+        <div class="empty-illustration">
+          <div class="icon-circle">
+            <i class="fa-solid fa-compass-drafting"></i>
+          </div>
+        </div>
+        <h2>Ready to Engineer Your Career Path?</h2>
+        <p>Fill out the profile details on the left, or click the testing preset <strong>"MCA Student → AI Engineer"</strong> above to see our Agentic AI in action.</p>
+        <div class="empty-features-grid">
+          <div class="empty-feature-item">
+            <i class="fa-solid fa-chart-pie"></i>
+            <h4>Profile Analysis</h4>
+            <p>Feasibility ratings &amp; realistic time estimates</p>
+          </div>
+          <div class="empty-feature-item">
+            <i class="fa-solid fa-route"></i>
+            <h4>3 Tailored Paths</h4>
+            <p>Match scores, salaries &amp; market outlook</p>
+          </div>
+          <div class="empty-feature-item">
+            <i class="fa-solid fa-puzzle-piece"></i>
+            <h4>Skill-Gap Matrix</h4>
+            <p>Critical gaps prioritized with action plans</p>
+          </div>
+          <div class="empty-feature-item">
+            <i class="fa-solid fa-timeline"></i>
+            <h4>Milestone Roadmap</h4>
+            <p>Weekly/Monthly stages with interactive tasks</p>
+          </div>
+        </div>
+        <button id="loadTestPresetBtn" class="secondary-btn">
+          <i class="fa-solid fa-play"></i> Load MCA Student Test Case
+        </button>
+      </div>
+
+      <!-- Loading State -->
+      <div id="loadingState" class="loading-state glass-card" style="display: none;">
+        <div class="ai-thinking-indicator">
+          <div class="thinking-spinner"></div>
+          <div class="thinking-brain">
+            <i class="fa-solid fa-brain"></i>
+          </div>
+        </div>
+        <h3 id="loadingStatusText">Agentic AI is evaluating your profile...</h3>
+        <p class="loading-subtext">Mapping technical skills, computing market feasibility, and drafting milestone roadmap.</p>
+        <div class="progress-steps-list">
+          <div class="step-badge active"><i class="fa-solid fa-check"></i> Evaluating Academic Qualifications</div>
+          <div class="step-badge active"><i class="fa-solid fa-check"></i> Cross-referencing 2026 Skill Demand</div>
+          <div class="step-badge pulse"><i class="fa-solid fa-spinner fa-spin"></i> Structuring Phased Learning Roadmap</div>
+        </div>
+      </div>
+
+      <!-- Results Container -->
+      <div id="resultsDashboard" class="results-dashboard" style="display: none;">
+        <!-- Top Banner: Controls & Export -->
+        <div class="results-top-bar glass-card">
+          <div class="dashboard-header-info">
+            <div class="badge-row">
+              <span id="resultProviderBadge" class="meta-chip">
+                <i class="fa-solid fa-microchip"></i> Engine: Loading...
+              </span>
+              <span id="resultFeasibilityBadge" class="meta-chip success">
+                <i class="fa-solid fa-circle-check"></i> Feasibility: High
+              </span>
+              <span id="resultTimeBadge" class="meta-chip info">
+                <i class="fa-solid fa-hourglass-half"></i> 20 Weeks Roadmap
+              </span>
+            </div>
+            <h2 id="resultGoalTitle">Career Plan for AI Engineer</h2>
+          </div>
+          
+          <div class="top-bar-actions">
+            <button id="printBtn" class="action-btn" title="Print or Save as PDF">
+              <i class="fa-solid fa-print"></i> <span>Print / PDF</span>
+            </button>
+            <button id="exportMarkdownBtn" class="action-btn" title="Download Markdown Report">
+              <i class="fa-solid fa-file-arrow-down"></i> <span>Export .MD</span>
+            </button>
+            <button id="scrollToChatBtn" class="action-btn highlight" title="Ask Agent Follow-up">
+              <i class="fa-solid fa-comments"></i> <span>Refine Plan</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Section 1: Student Profile Analysis -->
+        <section class="section-card glass-card" id="sectionProfileAnalysis">
+          <div class="section-header">
+            <div class="section-title">
+              <span class="section-number">01</span>
+              <h3>Student Profile Analysis</h3>
+            </div>
+            <span class="section-tag">Strategic Diagnostic</span>
+          </div>
+          <div class="profile-analysis-content">
+            <div class="analysis-summary-box">
+              <p id="analysisSummaryText" class="summary-paragraph">Summary text goes here...</p>
+            </div>
+            <div class="analysis-grid">
+              <div class="metric-card">
+                <span class="metric-label"><i class="fa-solid fa-id-badge"></i> Current Standing</span>
+                <span id="analysisCurrentStanding" class="metric-value">MCA Student (Beginner)</span>
+              </div>
+              <div class="metric-card">
+                <span class="metric-label"><i class="fa-solid fa-calendar-check"></i> Est. Job-Ready Timeline</span>
+                <span id="analysisEstimatedTime" class="metric-value">4 - 5 Months</span>
+              </div>
+              <div class="metric-card">
+                <span class="metric-label"><i class="fa-solid fa-chart-line"></i> Feasibility Outlook</span>
+                <span id="analysisFeasibilityRating" class="metric-value text-emerald">High</span>
+              </div>
+            </div>
+            <!-- Strengths & Key Advice -->
+            <div class="strengths-advice-container">
+              <div class="strengths-column">
+                <h4><i class="fa-solid fa-shield-halved text-primary"></i> Key Strengths Identified</h4>
+                <ul id="analysisStrengthsList" class="checked-list"></ul>
+              </div>
+              <div class="advice-column">
+                <h4><i class="fa-solid fa-compass text-amber"></i> Core Strategic Advice</h4>
+                <div id="analysisAdviceBox" class="advice-box"></div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Section 2: Recommended Career Paths -->
+        <section class="section-card glass-card" id="sectionCareerPaths">
+          <div class="section-header">
+            <div class="section-title">
+              <span class="section-number">02</span>
+              <h3>Recommended Career Paths</h3>
+            </div>
+            <span class="section-tag">3 Tailored Pathways</span>
+          </div>
+          <p class="section-desc">Based on your academic profile, skill foundations, and target ambition, here are the top 3 optimal pathways:</p>
+          <div id="careerPathsContainer" class="career-paths-grid">
+            <!-- Dynamically populated 3 cards -->
+          </div>
+        </section>
+
+        <!-- Section 3 & 4: Existing Skills & Skill Gaps -->
+        <div class="skills-duo-grid">
+          <!-- Section 3: Existing Skills -->
+          <section class="section-card glass-card" id="sectionExistingSkills">
+            <div class="section-header">
+              <div class="section-title">
+                <span class="section-number">03</span>
+                <h3>Existing Skills Analysis</h3>
+              </div>
+              <span class="section-tag">Validated Baseline</span>
+            </div>
+            <p class="section-desc">How your current proficiencies map into your target career:</p>
+            <div id="existingSkillsContainer" class="skills-chips-wrapper">
+              <!-- Dynamically populated skill chips -->
+            </div>
+          </section>
+
+          <!-- Section 4: Identified Skill Gaps -->
+          <section class="section-card glass-card" id="sectionSkillGaps">
+            <div class="section-header">
+              <div class="section-title">
+                <span class="section-number">04</span>
+                <h3>Identified Skill Gaps</h3>
+              </div>
+              <span class="section-tag danger">Prioritized Matrix</span>
+            </div>
+            <p class="section-desc">Critical competencies you must acquire to qualify for hiring:</p>
+            <div id="skillGapsContainer" class="skill-gaps-table-wrapper">
+              <!-- Dynamically populated table/cards -->
+            </div>
+          </section>
+        </div>
+
+        <!-- Section 5: Personalized Learning Roadmap -->
+        <section class="section-card glass-card" id="sectionRoadmap">
+          <div class="section-header">
+            <div class="section-title">
+              <span class="section-number">05</span>
+              <h3>Personalized Learning Roadmap</h3>
+            </div>
+            <div class="roadmap-header-right">
+              <span id="roadmapDurationBadge" class="duration-badge">20 Weeks (5 Months)</span>
+            </div>
+          </div>
+          <p class="section-desc">Step-by-step phased curriculum calibrated to your daily available study time. Check off milestones as you progress!</p>
+          
+          <!-- Interactive Progress Bar -->
+          <div class="roadmap-progress-bar-container">
+            <div class="progress-bar-meta">
+              <span>Roadmap Milestone Completion</span>
+              <span id="roadmapProgressPercent">0% Completed</span>
+            </div>
+            <div class="progress-track">
+              <div id="roadmapProgressBar" class="progress-fill" style="width: 0%;"></div>
+            </div>
+          </div>
+
+          <!-- Timeline Phases -->
+          <div id="roadmapTimelineContainer" class="roadmap-timeline">
+            <!-- Dynamically populated timeline cards -->
+          </div>
+        </section>
+
+        <!-- Section 6: Recommended Courses and Resources -->
+        <section class="section-card glass-card" id="sectionCourses">
+          <div class="section-header">
+            <div class="section-title">
+              <span class="section-number">06</span>
+              <h3>Recommended Courses &amp; Resources</h3>
+            </div>
+            <span class="section-tag">Curated Learning Material</span>
+          </div>
+          <p class="section-desc">Handpicked free and top-rated industry certifications and tutorials:</p>
+          <div id="coursesGridContainer" class="courses-grid">
+            <!-- Dynamically populated course cards -->
+          </div>
+        </section>
+
+        <!-- Section 7: Suggested Practical Projects -->
+        <section class="section-card glass-card" id="sectionProjects">
+          <div class="section-header">
+            <div class="section-title">
+              <span class="section-number">07</span>
+              <h3>Suggested Practical Projects</h3>
+            </div>
+            <span class="section-tag">Portfolio &amp; Resume Impact</span>
+          </div>
+          <p class="section-desc">Recruiters hire builders. Complete these sequential projects from foundational scripts to an advanced capstone:</p>
+          <div id="projectsGridContainer" class="projects-grid">
+            <!-- Dynamically populated project cards -->
+          </div>
+        </section>
+
+        <!-- Section 8: Career Preparation Tips -->
+        <section class="section-card glass-card" id="sectionCareerTips">
+          <div class="section-header">
+            <div class="section-title">
+              <span class="section-number">08</span>
+              <h3>Career Preparation &amp; Placement Tips</h3>
+            </div>
+            <span class="section-tag">Job Hunting Playbook</span>
+          </div>
+          <div class="career-tips-tabs">
+            <button class="tip-tab-btn active" data-tab="resume"><i class="fa-solid fa-file-lines"></i> Resume Strategy</button>
+            <button class="tip-tab-btn" data-tab="github"><i class="fa-brands fa-github"></i> GitHub Portfolio</button>
+            <button class="tip-tab-btn" data-tab="linkedin"><i class="fa-brands fa-linkedin"></i> LinkedIn &amp; Networking</button>
+            <button class="tip-tab-btn" data-tab="interview"><i class="fa-solid fa-user-tie"></i> Technical Interviews</button>
+          </div>
+          <div class="tips-tab-content" id="tipsTabContent">
+            <!-- Dynamically populated tab items -->
+          </div>
+        </section>
+
+        <!-- Section 9: Agentic Follow-Up & Dynamic Refinement Drawer -->
+        <section class="section-card glass-card highlight-card" id="sectionRefinement">
+          <div class="section-header">
+            <div class="section-title">
+              <span class="section-number"><i class="fa-solid fa-robot"></i></span>
+              <h3>Agentic Refinement &amp; Follow-up Counselor</h3>
+            </div>
+            <span class="section-tag success">Iterative AI Mentor</span>
+          </div>
+          <p class="section-desc">Have questions? Want to change your timeline, adjust for upcoming exams, or focus on a specific framework? Chat with your Career Agent below:</p>
+
+          <!-- Suggested Follow-up Questions Prompts -->
+          <div class="suggested-followups-container">
+            <span class="suggested-label"><i class="fa-solid fa-lightbulb"></i> Suggested Follow-ups:</span>
+            <div id="suggestedQuestionsContainer" class="suggested-chips">
+              <!-- Dynamically populated clickable question chips -->
+            </div>
+          </div>
+
+          <!-- Chat Conversation Log -->
+          <div id="refinementChatLog" class="chat-log-container">
+            <div class="chat-message agent-message">
+              <div class="avatar"><i class="fa-solid fa-robot"></i></div>
+              <div class="bubble">
+                <p>Hello! I am your <strong>Career Planning Agent</strong>. I have synthesized your customized roadmap above. Feel free to ask me follow-up questions or tell me if you'd like to adjust the pace (e.g., <em>"Make this a 3-month accelerated track"</em> or <em>"Focus more on Deep Learning and LLMs"</em>)!</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Chat Input -->
+          <form id="refinementForm" class="refinement-input-box">
+            <input 
+              type="text" 
+              id="refinementInput" 
+              placeholder="Ask a question or request a roadmap modification..." 
+              autocomplete="off"
+              required
+            >
+            <button type="submit" id="sendRefinementBtn" class="primary-btn send-btn">
+              <span>Send</span>
+              <i class="fa-solid fa-paper-plane"></i>
+            </button>
+          </form>
+        </section>
+      </div>
+    </section>
+  </main>
+
+  <!-- AI Settings Modal -->
+  <div id="settingsModal" class="modal-backdrop" style="display: none;">
+    <div class="modal-dialog glass-card">
+      <div class="modal-header">
+        <div class="modal-title">
+          <i class="fa-solid fa-sliders text-primary"></i>
+          <h3>AI Engine &amp; API Configuration</h3>
+        </div>
+        <button id="closeSettingsBtn" class="close-btn" aria-label="Close Modal">&times;</button>
+      </div>
+      <div class="modal-body">
+        <p class="modal-intro">The Career Planning Agent is equipped with a high-fidelity built-in <strong>Expert Heuristic Engine</strong> for offline/instant use, and connects seamlessly with <strong>Google Gemini AI</strong> for live generative reasoning.</p>
+
+        <div class="settings-engine-status-box">
+          <div class="status-indicator-row">
+            <span>Current Status:</span>
+            <strong id="modalActiveEngineText" class="badge">Checking...</strong>
+          </div>
+        </div>
+
+        <form id="settingsForm">
+          <div class="form-group">
+            <label for="geminiApiKeyInput">
+              <i class="fa-brands fa-google"></i> Google Gemini API Key
+            </label>
+            <div class="password-input-group">
+              <input 
+                type="password" 
+                id="geminiApiKeyInput" 
+                placeholder="AIzaSy... (Leave empty to use built-in Expert Engine)"
+              >
+              <button type="button" id="toggleApiKeyVisBtn" class="icon-toggle-btn">
+                <i class="fa-solid fa-eye"></i>
+              </button>
+            </div>
+            <span class="field-hint">Stored securely on your local server. Get a free API key at <a href="https://aistudio.google.com/" target="_blank" rel="noopener">Google AI Studio</a>.</span>
+          </div>
+
+          <div class="form-group">
+            <label for="geminiModelSelect">
+              <i class="fa-solid fa-brain"></i> Preferred Gemini Model
+            </label>
+            <select id="geminiModelSelect">
+              <option value="gemini-1.5-flash">gemini-1.5-flash (Fast &amp; Recommended)</option>
+              <option value="gemini-1.5-pro">gemini-1.5-pro (Deep Reasoning)</option>
+              <option value="gemini-2.0-flash">gemini-2.0-flash (Latest Model)</option>
+            </select>
+          </div>
+
+          <div class="modal-actions">
+            <button type="button" id="cancelSettingsBtn" class="secondary-btn">Cancel</button>
+            <button type="submit" class="primary-btn">Save Configuration</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- Notification Toast -->
+  <div id="toastNotification" class="toast" style="display: none;">
+    <i class="toast-icon fa-solid fa-info-circle"></i>
+    <span class="toast-message">Notification</span>
+  </div>
+
+  <!-- Footer -->
+  <footer class="app-footer">
+    <div class="footer-container">
+      <p>&copy; 2026 <strong>Career Planning Agent</strong> &bull; Developed with Agentic AI &amp; Prompt Engineering</p>
+      <div class="footer-links">
+        <a href="#sectionRoadmap"><i class="fa-solid fa-route"></i> Roadmap</a>
+        <a href="#sectionProjects"><i class="fa-solid fa-code"></i> Projects</a>
+        <a href="javascript:void(0)" id="footerSettingsLink"><i class="fa-solid fa-gear"></i> Settings</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="js/api.js"></script>
+  <script src="js/components.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
